@@ -1,0 +1,143 @@
+---
+import Layout from "../layouts/Layout.astro";
+import MaxWidthContainer from "../components/MaxWidthContainer.astro";
+import heroImage from "../assets/hero-plan-builder.925203a8.jpg";
+import internetPlan from "../assets/internet-plan.svg";
+import x from "../assets/x.svg";
+---
+
+<Layout
+  title="Xfinity Shop"
+  description="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form."
+>
+  <header id="navbar"></header>
+  <main>
+    <section id="hero">
+      <MaxWidthContainer>
+        <div class="inner">
+          <div class="text">
+            <h1>Your perfect plan is waiting</h1>
+            <p>
+              All that's left to do is build it. The best part? You'll get the
+              same great prices found in our pre-built offers.
+            </p>
+          </div>
+          <div class="image">
+            <img
+              src={heroImage}
+              alt="A white modem on a purple background with rays coming out of it."
+            />
+          </div>
+        </div>
+      </MaxWidthContainer>
+    </section>
+    <section id="plans">
+      <MaxWidthContainer>
+        <div class="inner">
+          <section id="internet" class="accordion">
+            <header>
+              <div class="heading">
+                <img src={internetPlan} alt="" aria-hidden="true" />
+                <h2>Internet</h2>
+              </div>
+              <div class="toggle-area">
+                <p class="toggle-text">Open</p>
+                <img src={x} alt="" aria-hidden="true" />
+              </div>
+            </header>
+            <div class="dropdown">
+              <header>
+                <h3>Choose your speed</h3>
+              </header>
+              <div class="banner">
+                <p>These plans come with a contract</p>
+                <div>
+                  <p>Term contract</p>
+                  <button></button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </MaxWidthContainer>
+    </section>
+  </main>
+</Layout>
+
+<style lang="scss">
+  @use "../styles/tokens/_tokens.scss" as t;
+
+  /* Navbar */
+
+  #navbar {
+    background-color: t.$clr-black;
+    height: 7.25rem;
+  }
+
+  /* End Navbar */
+
+  /* Hero */
+
+  section#hero {
+    display: flex;
+    background-color: t.$clr-accent;
+    height: min(50vh, 25rem);
+
+    :global(.max-width) {
+      margin: 0 auto;
+    }
+  }
+
+  section#hero .inner {
+    display: grid;
+    height: 100%;
+
+    .text,
+    .image {
+      grid-row: 1;
+      grid-column: 1;
+    }
+
+    .text {
+      padding: 1rem 0 1rem 5rem;
+      z-index: 2;
+      color: rgba(246, 246, 249);
+      max-width: 50%;
+      margin: auto 0;
+
+      h1 {
+        margin: 1rem 0;
+        font-weight: 700;
+
+        letter-spacing: clamp(
+          -0.025rem,
+          -0.0052rem + -0.030864197530864196vw,
+          -0.0125rem
+        );
+
+        font-size: clamp(
+          1.625rem,
+          1.2623456790123457rem + 1.5432098765432098vw,
+          2.25rem
+        );
+
+        line-height: clamp(
+          2.125rem,
+          1.7623456790123457rem + 1.5432098765432098vw,
+          2.75rem
+        );
+      }
+    }
+
+    .image {
+      height: 100%;
+
+      img {
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  /* End Hero */
+</style>
