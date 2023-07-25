@@ -1,0 +1,171 @@
+---
+import internetPlan from "../assets/internet-plan.svg";
+import x from "../assets/x.svg";
+---
+
+<section id="internet" class="accordion" data-expanded="false">
+  <header class="summary">
+    <div class="heading-area">
+      <img src={internetPlan} alt="" aria-hidden="true" class="header-image" />
+      <h2 class="heading">Internet</h2>
+    </div>
+    <div class="button-area">
+      <p class="button-text">Open</p>
+      <button class="toggle-accordion">
+        <img src={x} alt="" aria-hidden="true" />
+      </button>
+    </div>
+  </header>
+  <div class="details">
+    <header>
+      <h3>Choose your speed</h3>
+    </header>
+    <div class="details-banner">
+      <p class="terms">These plans come with a contract</p>
+      <div class="button-area">
+        <p class="button-text">Term contract</p>
+        <button></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const accordions = document.querySelectorAll<HTMLElement>(".accordion");
+
+  accordions.forEach((accordion) => {
+    accordion.addEventListener("click", (event) => {
+      const buttonText = accordion.querySelector(".button-text") as HTMLElement;
+      const buttonSvg = accordion.querySelector(
+        ".toggle-accordion img"
+      ) as HTMLElement;
+      const details = accordion.querySelector(".details") as HTMLElement;
+
+      accordion.classList.add("expanded");
+      accordion.style.maxWidth = "100%";
+
+      if (buttonText) {
+        buttonText.textContent = "Close";
+      }
+
+      if (buttonSvg) {
+        buttonSvg.style.transform = "rotate(-45deg)";
+      }
+
+      if (details) {
+        details.style.display = "block";
+      }
+    });
+  });
+</script>
+
+<style lang="scss">
+  @use "../styles/tokens/_tokens.scss" as t;
+  $transition: 0.3s all ease-out;
+
+  .accordion {
+    max-width: 62.5rem;
+    width: 100%;
+    box-shadow: rgb(0, 0, 0) 0rem 0rem 0rem 0rem;
+    background-color: t.$clr-accordion;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transform-origin: 50% 50% 0rem;
+    transition: $transition;
+  }
+
+  .accordion.expanded,
+  .accordion:hover {
+    width: 102%;
+    // margin-left: -1%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0rem 1.25rem 0.625rem -0.9375rem;
+    border: 0.0625rem solid lightgrey;
+    background-color: white;
+  }
+
+  .accordion .summary {
+    display: flex;
+    padding: t.$pd-accordion;
+    transition: $transition;
+  }
+
+  .accordion .summary .heading-area,
+  .accordion .summary .button-area {
+    display: flex;
+    align-items: center;
+  }
+
+  .accordion .summary .heading-area {
+    margin-right: auto;
+  }
+
+  .accordion .summary .header-image {
+    margin-right: 2.5rem;
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+
+  .accordion .summary .heading {
+    font-size: clamp(1.875rem, 1.375rem + 0.78125vw, 2rem);
+    line-height: clamp(2.375rem, 1.875rem + 0.78125vw, 2.5rem);
+    letter-spacing: clamp(
+      -0.025rem,
+      -0.0052rem + -0.030864197530864196vw,
+      -0.0125rem
+    );
+    font-weight: 700;
+  }
+
+  .accordion .summary .button-text {
+    color: t.$clr-accent;
+    margin-right: 0.75rem;
+  }
+
+  .accordion .summary .toggle-accordion {
+    background-color: transparent;
+    border: transparent;
+    width: 2rem;
+    height: 2rem;
+    transition: 0.3s ease-in all;
+    transform: rotate(45deg);
+  }
+
+  .details {
+    display: none;
+    padding: t.$pd-accordion;
+
+    header {
+      font-size: clamp(1rem, 0.875rem + 0.78125vw, 1.25rem);
+      line-height: clamp(1.875rem, 1.375rem + 0.78125vw, 2rem);
+      letter-spacing: -0.2px;
+    }
+  }
+
+  .details-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+    padding: t.$pd-accordion;
+    background-color: t.$clr-details-banner;
+    border-radius: 4px;
+
+    .terms {
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .button-area {
+      display: flex;
+    }
+
+    .button-text {
+      margin-right: 1.5rem;
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+  }
+</style>

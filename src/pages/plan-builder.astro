@@ -2,8 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import MaxWidthContainer from "../components/MaxWidthContainer.astro";
 import heroImage from "../assets/hero-plan-builder.925203a8.jpg";
-import internetPlan from "../assets/internet-plan.svg";
-import x from "../assets/x.svg";
+import Plans from "../layouts/Plans.astro";
 ---
 
 <Layout
@@ -31,52 +30,17 @@ import x from "../assets/x.svg";
         </div>
       </MaxWidthContainer>
     </section>
-    <section id="plans">
-      <MaxWidthContainer>
-        <div class="inner">
-          <section id="internet" class="accordion">
-            <header>
-              <div class="heading">
-                <img src={internetPlan} alt="" aria-hidden="true" />
-                <h2>Internet</h2>
-              </div>
-              <div class="toggle-area">
-                <p class="toggle-text">Open</p>
-                <img src={x} alt="" aria-hidden="true" />
-              </div>
-            </header>
-            <div class="dropdown">
-              <header>
-                <h3>Choose your speed</h3>
-              </header>
-              <div class="banner">
-                <p>These plans come with a contract</p>
-                <div>
-                  <p>Term contract</p>
-                  <button></button>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
-      </MaxWidthContainer>
-    </section>
+    <Plans />
   </main>
 </Layout>
 
 <style lang="scss">
   @use "../styles/tokens/_tokens.scss" as t;
 
-  /* Navbar */
-
   #navbar {
     background-color: t.$clr-black;
     height: 7.25rem;
   }
-
-  /* End Navbar */
-
-  /* Hero */
 
   section#hero {
     display: flex;
@@ -138,6 +102,4 @@ import x from "../assets/x.svg";
       }
     }
   }
-
-  /* End Hero */
 </style>
