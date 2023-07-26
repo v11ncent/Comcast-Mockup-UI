@@ -1,0 +1,26 @@
+---
+import MaxWidthContainer from "../components/MaxWidthContainer.astro";
+import Accordion from "./Accordion.astro";
+---
+
+<section id="plans">
+  <MaxWidthContainer>
+    <Accordion />
+    <Accordion />
+    <Accordion />
+    <Accordion />
+  </MaxWidthContainer>
+</section>
+
+<style lang="scss">
+  section#plans {
+    padding: 1rem;
+
+    :global(.max-width) {
+      display: grid;
+      place-items: center;
+      margin: 0 auto;
+      gap: 1rem;
+    }
+  }
+</style>

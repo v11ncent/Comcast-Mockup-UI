@@ -1,0 +1,104 @@
+---
+import modem from "../assets/modem.jpg";
+import peacock from "../assets/peacock.jpg";
+import more from "../assets/more.jpg";
+---
+
+<section>
+  <header class="sr-only">
+    <h3>Upsell area</h3>
+  </header>
+  <ul>
+    <li>
+      <div>
+        <img src={modem} alt="Picture of a modem." />
+        <div class="text">
+          <h4>Need to rent a modem and router?</h4>
+          <p>
+            Add an xFi Gateway modem and router later for an extra charge.
+            <a href="/">Why the extra charge?</a>
+          </p>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div>
+        <img src={peacock} alt="Peacock TV logo." />
+        <div class="text">
+          <h4>Stream your favorites on Peacock</h4>
+          <p>
+            No matter which Internet plan you chose, you'll get Peacock Premium
+            on us.
+            <a href="/">Learn more about Peacock.</a>
+          </p>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div>
+        <img src={more} alt="Picture of a modem." />
+        <div class="text">
+          <h4>Your Internet comes with more</h4>
+          <p>
+            Get a Flex 4K streaming TV box free with Internet-only plans.
+            <a href="/">Learn more about Flex.</a>
+          </p>
+        </div>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<style lang="scss">
+  @use "../styles/tokens/tokens.scss" as t;
+
+  section {
+    margin-top: 2.5rem;
+    padding: 2rem 0;
+    background-color: t.$clr-upsell-banner;
+    border-radius: 4px;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  li {
+    padding: 1.5rem 2rem;
+
+    &:first-of-type,
+    &:nth-of-type(2) {
+      border-right: 1px solid lightgrey;
+    }
+  }
+
+  li > div {
+    display: flex;
+  }
+
+  img {
+    object-fit: contain;
+    object-position: top;
+  }
+
+  .text {
+    margin-left: 1rem;
+  }
+
+  h4 {
+    padding-bottom: 1rem;
+    font-size: clamp(1.375rem, 0.875rem + 0.78125vw, 1.5rem);
+    line-height: clamp(1.875rem, 1.375rem + 0.78125vw, 2rem);
+    letter-spacing: -0.2px;
+  }
+
+  p {
+    font-size: clamp(0.8125rem, 0.5625rem + 0.390625vw, 0.875rem);
+    line-height: clamp(
+      1rem,
+      0.8549382716049383rem + 0.6172839506172839vw,
+      1.25rem
+    );
+  }
+</style>

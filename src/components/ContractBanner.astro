@@ -1,0 +1,43 @@
+<div class="banner">
+  <p class="terms">These plans come with a contract</p>
+  <div class="button-area">
+    <p class="text">Term contract</p>
+    <button></button>
+  </div>
+</div>
+
+<style lang="scss">
+  @use "../styles/tokens/tokens.scss" as t;
+
+  .banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+    padding: t.$pd-accordion;
+    background-color: t.$clr-details-banner;
+    border-radius: 0.25rem;
+  }
+
+  .terms {
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .button-area {
+    display: flex;
+  }
+
+  .text {
+    margin-right: 1.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    letter-spacing: 0.0625rem;
+    text-transform: uppercase;
+  }
+
+  button {
+    display: none;
+  }
+</style>

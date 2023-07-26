@@ -1,38 +1,32 @@
 ---
-import MaxWidthContainer from "../components/MaxWidthContainer.astro";
-import Accordion from "../components/Accordion.astro";
+import Plan from "../components/Plan.astro";
 ---
 
-<section id="plans">
-  <MaxWidthContainer>
-    <Accordion />
-    <Accordion />
-    <Accordion />
-    <Accordion />
-    <Accordion />
-    <Accordion />
-    <Accordion />
-    <Accordion />
-    <Accordion />
-    <Accordion />
-    <Accordion />
-    <Accordion />
-    <Accordion />
-    <Accordion />
-    <Accordion />
-    <Accordion />
-  </MaxWidthContainer>
-</section>
+<ul class="plans">
+  <li>
+    <Plan />
+  </li>
+  <li>
+    <Plan />
+  </li>
+  <li>
+    <Plan />
+  </li>
+  <li>
+    <Plan />
+  </li>
+  <li>
+    <Plan />
+  </li>
+  <li>
+    <Plan />
+  </li>
+</ul>
 
-<style lang="scss">
-  section#plans {
-    padding: 1rem;
-
-    :global(.max-width) {
-      display: grid;
-      place-items: center;
-      margin: 0 auto;
-      gap: 1rem;
-    }
+<style>
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
   }
 </style>

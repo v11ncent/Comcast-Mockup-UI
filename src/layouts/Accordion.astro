@@ -1,7 +1,9 @@
 ---
-import PlanCard from "./PlanCard.astro";
+import Plans from "./Plans.astro";
+import ContractBanner from "../components/ContractBanner.astro";
 import internetPlan from "../assets/internet-plan.svg";
-import x from "../assets/x.svg";
+import icon from "../assets/x.svg";
+import UpsellBanner from "../components/UpsellBanner.astro";
 ---
 
 <section id="internet" class="accordion" data-expanded="false">
@@ -11,10 +13,8 @@ import x from "../assets/x.svg";
       <h2 class="heading">Internet</h2>
     </div>
     <div class="button-area">
-      <p class="button-text">Open</p>
-      <button class="button-toggle">
-        <img src={x} alt="" aria-hidden="true" />
-      </button>
+      <p class="text">Open</p>
+      <img src={icon} alt="" aria-hidden="true" class="accordion-icon" />
     </div>
   </header>
   <div class="details-container">
@@ -23,33 +23,9 @@ import x from "../assets/x.svg";
         <header>
           <h3>Choose your speed</h3>
         </header>
-        <div class="details-banner">
-          <p class="terms">These plans come with a contract</p>
-          <div class="button-area">
-            <p class="button-text">Term contract</p>
-            <button></button>
-          </div>
-        </div>
-        <ul class="plans">
-          <li>
-            <PlanCard />
-          </li>
-          <li>
-            <PlanCard />
-          </li>
-          <li>
-            <PlanCard />
-          </li>
-          <li>
-            <PlanCard />
-          </li>
-          <li>
-            <PlanCard />
-          </li>
-          <li>
-            <PlanCard />
-          </li>
-        </ul>
+        <ContractBanner />
+        <Plans />
+        <UpsellBanner />
       </div>
     </div>
   </div>
@@ -62,8 +38,10 @@ import x from "../assets/x.svg";
     const summary = accordion.querySelector(".summary") as HTMLElement;
 
     summary.addEventListener("click", (event) => {
-      const button = accordion.querySelector(".button-toggle") as HTMLElement;
-      const buttonText = accordion.querySelector(".button-text") as HTMLElement;
+      const button = accordion.querySelector(".accordion-icon") as HTMLElement;
+      const buttonText = accordion.querySelector(
+        ".button-area .text"
+      ) as HTMLElement;
       const detailsContainer = accordion.querySelector(
         ".details-container"
       ) as HTMLElement;
@@ -107,17 +85,17 @@ import x from "../assets/x.svg";
     background-color: t.$clr-accordion;
     transform-origin: $transform-origin;
     transition: $transition;
-  }
 
-  .accordion.expanded,
-  .accordion:hover {
-    width: 102%;
-    box-shadow: rgba(0, 0, 0, 0.25) 0rem 1.25rem 0.625rem -0.9375rem;
-    background-color: white;
-  }
+    &.expanded {
+      max-width: 100%;
+    }
 
-  .accordion.expanded {
-    max-width: 100%;
+    &.expanded,
+    &:hover {
+      width: 102%;
+      box-shadow: rgba(0, 0, 0, 0.25) 0rem 1.25rem 0.625rem -0.9375rem;
+      background-color: white;
+    }
   }
 
   .summary {
@@ -126,29 +104,29 @@ import x from "../assets/x.svg";
     transition: $transition;
     transform-origin: $transform-origin;
     cursor: pointer;
+
+    &.expanded {
+      border-bottom: 0.0625rem solid lightgrey;
+    }
   }
 
-  .summary.expanded {
-    border-bottom: 0.0625rem solid lightgrey;
-  }
-
-  .accordion .summary .heading-area,
-  .accordion .summary .button-area {
+  .summary .heading-area,
+  .summary .button-area {
     display: flex;
     align-items: center;
   }
 
-  .accordion .summary .heading-area {
+  .summary .heading-area {
     margin-right: auto;
   }
 
-  .accordion .summary .header-image {
+  .summary .header-image {
     margin-right: 2.5rem;
     height: 2.5rem;
     width: 2.5rem;
   }
 
-  .accordion .summary .heading {
+  .summary .heading {
     font-size: clamp(1.875rem, 1.375rem + 0.78125vw, 2rem);
     line-height: clamp(2.375rem, 1.875rem + 0.78125vw, 2.5rem);
     letter-spacing: clamp(
@@ -159,16 +137,14 @@ import x from "../assets/x.svg";
     font-weight: 700;
   }
 
-  .accordion .summary .button-text {
+  .summary .text {
     color: t.$clr-accent;
     margin-right: 0.75rem;
   }
 
-  .accordion .summary .button-toggle {
-    background-color: transparent;
-    border: transparent;
-    width: 2rem;
-    height: 2rem;
+  .summary .accordion-icon {
+    width: 1.2rem;
+    height: 1.2rem;
     transition: $transition;
     transform: rotate(45deg);
 
@@ -209,43 +185,5 @@ import x from "../assets/x.svg";
       line-height: clamp(1.875rem, 1.375rem + 0.78125vw, 2rem);
       letter-spacing: -0.0125rem;
     }
-  }
-
-  .details-banner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin: 2rem 0;
-    padding: t.$pd-accordion;
-    border-radius: 0.25rem;
-    background-color: t.$clr-details-banner;
-
-    .terms {
-      font-weight: 700;
-      line-height: 1.5;
-    }
-
-    .button-area {
-      display: flex;
-    }
-
-    .button-text {
-      margin-right: 1.5rem;
-      font-size: 0.875rem;
-      line-height: 1.25rem;
-      letter-spacing: 0.0625rem;
-      text-transform: uppercase;
-    }
-
-    button {
-      display: none;
-    }
-  }
-
-  .plans {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 5rem;
   }
 </style>

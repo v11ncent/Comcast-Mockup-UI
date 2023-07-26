@@ -1,0 +1,171 @@
+---
+import blueWifi from "../assets/blue-wifi.png";
+---
+
+<astro-plan>
+  <article>
+    <header>
+      <p class="overline">Connect</p>
+      <img src={blueWifi} alt="" aria-hidden="true" class="image-transform" />
+      <div>
+        <p class="speed">40</p>
+        <p class="speed-units">Mbps</p>
+      </div>
+      <p class="devices">Up to 4 devices at a time</p>
+    </header>
+    <hr class="card-divider" />
+    <footer>
+      <p class="price">$30/mo</p>
+      <p class="conditions">
+        For 12 months with 1-year term contract. Taxes and equipment not
+        included.
+      </p>
+    </footer>
+  </article>
+</astro-plan>
+
+<script>
+  class AstroPlan extends HTMLElement {
+    constructor() {
+      super();
+
+      const article = this.querySelector("article");
+      const header = this.querySelector("header");
+      const image = this.querySelector("img");
+      const hr = this.querySelector("hr");
+      const footer = this.querySelector("footer");
+
+      article?.addEventListener("mouseover", (event) => {
+        header?.classList.add("hover");
+        image?.classList.add("hover");
+        hr?.classList.add("hover");
+        footer?.classList.add("hover");
+      });
+
+      article?.addEventListener("mouseout", (event) => {
+        header?.classList.remove("hover");
+        image?.classList.remove("hover");
+        hr?.classList.remove("hover");
+        footer?.classList.add("hover");
+      });
+    }
+  }
+
+  customElements.define("astro-plan", AstroPlan);
+</script>
+
+<style lang="scss">
+  @use "../styles/tokens/_tokens.scss" as t;
+  $transition: all 300ms linear;
+
+  article {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-color: #e3e0fa;
+    border: 0.125rem solid t.$clr-plan-border;
+    border-width: 0.125rem;
+    border-radius: 0.5rem;
+    box-shadow: rgba(0, 0, 0, 0) 0rem 1.5rem 0.75rem -0.625rem;
+    text-align: center;
+    transition: $transition;
+    cursor: pointer;
+    position: relative;
+    inset: 0px;
+
+    &:hover {
+      box-shadow: rgba(0, 0, 0, 0.1) 0rem 2.5rem 1.375rem -1.5rem;
+      transform: scale(1.025);
+    }
+  }
+
+  header {
+    transition: $transition;
+
+    &.hover {
+      transform: translateY(-10px);
+    }
+  }
+
+  .overline {
+    margin: 1rem 0 0.75rem 0;
+    font-size: 0.75rem;
+    line-height: 1;
+    letter-spacing: 0.0625rem;
+    text-transform: uppercase;
+  }
+
+  img {
+    margin: 0 auto 0.75rem auto;
+    height: 0.85rem;
+    transition: $transition;
+
+    &.hover {
+      transform: scale(1.35);
+    }
+  }
+
+  .speed {
+    font-weight: 700;
+
+    letter-spacing: clamp(
+      -0.025rem,
+      -0.0052rem + -0.030864197530864196vw,
+      -0.0125rem
+    );
+
+    font-size: clamp(
+      1.625rem,
+      1.2623456790123457rem + 1.5432098765432098vw,
+      2.25rem
+    );
+
+    line-height: clamp(
+      2.125rem,
+      1.7623456790123457rem + 1.5432098765432098vw,
+      2.75rem
+    );
+  }
+
+  .speed-units {
+    line-height: 1.5;
+    font-weight: 700;
+  }
+
+  .devices {
+    margin-top: 0.75rem;
+  }
+
+  hr {
+    margin: 2rem auto;
+    width: 2rem;
+    color: t.$clr-plan-border;
+    transition: $transition;
+
+    &.hover {
+      width: 4rem;
+    }
+  }
+
+  .price {
+    margin-bottom: 0.5rem;
+    font-size: clamp(1.375rem, 0.875rem + 0.78125vw, 1.5rem);
+    line-height: clamp(1.875rem, 1.375rem + 0.78125vw, 2rem);
+    letter-spacing: -0.0125rem;
+    font-weight: 700;
+  }
+
+  footer {
+    transition: $transition;
+
+    p {
+      margin: 1.5rem 1.25rem 2rem;
+      font-size: 0.75rem;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    &.hover {
+      transform: translateY(10px);
+    }
+  }
+</style>
