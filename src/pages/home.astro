@@ -1,0 +1,142 @@
+---
+import Layout from "../layouts/Layout.astro";
+import MaxWidthContainer from "../components/MaxWidthContainer.astro";
+import heroImage from "../assets/3for1_Hero_fullimage_Desktop.avif";
+import checkmark from "../assets/checkmark.svg";
+---
+
+<Layout
+  title="Internet, TV, Phone, Smart Home and Security - Xfinity"
+  description="There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form."
+>
+  <header id="navbar"></header>
+  <section id="hero">
+    <MaxWidthContainer>
+      <div class="text-container">
+        <p class="overline">No term contract required</p>
+        <h1>Get Unlimited Internet and streaming for only $30/month</h1>
+        <ul>
+          <li>
+            <div class="checkmark">
+              <img src={checkmark} alt="" aria-hidden="true" />
+            </div>
+            <p>
+              Internet equipment included. Two-year price guarantee and no term
+              contract required
+            </p>
+          </li>
+          <li>
+            <div class="checkmark">
+              <img src={checkmark} alt="" aria-hidden="true" />
+            </div>
+            <p>
+              Includes our free Flex 4K streaming TV box, with Peacock Premium
+              and thousands of shows and movies
+            </p>
+          </li>
+          <li>
+            <div class="checkmark">
+              <img src={checkmark} alt="" aria-hidden="true" />
+            </div>
+            <p>
+              When you add an Xfinity Mobile plan on America's most reliable
+              network, at regular prices
+            </p>
+          </li>
+        </ul>
+        <div class="links">
+          <a href="/" class="primary-cta">Shop now</a>
+          <a href="/" class="secondary-cta">Pricing & other info</a>
+        </div>
+        <p class="terms">
+          Account required to access Peacock. Additional steaming subscriptions
+          not included in the bundle.
+        </p>
+      </div>
+    </MaxWidthContainer>
+    <div class="image-container">
+      <img
+        src={heroImage}
+        alt="Image of a phone, modem, and TV that has the different streaming services Comcast owns."
+      />
+    </div>
+  </section>
+</Layout>
+
+<style lang="scss">
+  @use "../styles/tokens/_tokens.scss" as t;
+
+  #navbar {
+    color: white;
+    min-height: 3rem;
+  }
+
+  section#hero {
+    display: grid;
+    color: white;
+  }
+
+  section#hero :global(.max-width),
+  .image-container {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  section#hero :global(.max-width) {
+    z-index: 2;
+  }
+
+  .text-container {
+    padding: 4rem;
+    max-width: 37.5rem;
+  }
+
+  .overline {
+    margin-bottom: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.0125rem;
+    line-height: 1;
+    font-size: clamp(1.25rem, 1.07rem + 0.89vw, 1.35rem);
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+    font-size: clamp(1.5rem, 1.23rem + 1.33vw, 1.875rem);
+    font-weight: 700;
+    letter-spacing: -0.0125rem;
+  }
+
+  li {
+    display: flex;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(246, 246, 249, 0.15);
+  }
+
+  .checkmark {
+    margin-top: 1px;
+    margin-right: 0.5rem;
+  }
+
+  .links {
+    margin: 1rem 0 2rem 0;
+  }
+
+  .terms {
+    font-size: 0.75rem;
+  }
+
+  .image-container {
+    @media (min-width: 62.5rem) {
+      height: 60vh;
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .primary-cta {
+  }
+</style>
