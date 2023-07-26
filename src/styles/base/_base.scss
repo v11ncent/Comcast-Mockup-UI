@@ -1,3 +1,6 @@
+@use "../tokens/tokens" as t;
+
 body {
   font-family: "DM Sans", sans-serif;
+  background-color: t.$clr-page-background;
 }

@@ -1,4 +1,5 @@
 ---
+import PlanCard from "./PlanCard.astro";
 import internetPlan from "../assets/internet-plan.svg";
 import x from "../assets/x.svg";
 ---
@@ -11,20 +12,44 @@ import x from "../assets/x.svg";
     </div>
     <div class="button-area">
       <p class="button-text">Open</p>
-      <button class="toggle-accordion">
+      <button class="button-toggle">
         <img src={x} alt="" aria-hidden="true" />
       </button>
     </div>
   </header>
-  <div class="details">
-    <header>
-      <h3>Choose your speed</h3>
-    </header>
-    <div class="details-banner">
-      <p class="terms">These plans come with a contract</p>
-      <div class="button-area">
-        <p class="button-text">Term contract</p>
-        <button></button>
+  <div class="details-container">
+    <div class="details">
+      <div class="inner">
+        <header>
+          <h3>Choose your speed</h3>
+        </header>
+        <div class="details-banner">
+          <p class="terms">These plans come with a contract</p>
+          <div class="button-area">
+            <p class="button-text">Term contract</p>
+            <button></button>
+          </div>
+        </div>
+        <ul class="plans">
+          <li>
+            <PlanCard />
+          </li>
+          <li>
+            <PlanCard />
+          </li>
+          <li>
+            <PlanCard />
+          </li>
+          <li>
+            <PlanCard />
+          </li>
+          <li>
+            <PlanCard />
+          </li>
+          <li>
+            <PlanCard />
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -34,26 +59,36 @@ import x from "../assets/x.svg";
   const accordions = document.querySelectorAll<HTMLElement>(".accordion");
 
   accordions.forEach((accordion) => {
-    accordion.addEventListener("click", (event) => {
+    const summary = accordion.querySelector(".summary") as HTMLElement;
+
+    summary.addEventListener("click", (event) => {
+      const button = accordion.querySelector(".button-toggle") as HTMLElement;
       const buttonText = accordion.querySelector(".button-text") as HTMLElement;
-      const buttonSvg = accordion.querySelector(
-        ".toggle-accordion img"
+      const detailsContainer = accordion.querySelector(
+        ".details-container"
       ) as HTMLElement;
       const details = accordion.querySelector(".details") as HTMLElement;
+      const expanded = accordion.getAttribute("data-expanded");
 
-      accordion.classList.add("expanded");
-      accordion.style.maxWidth = "100%";
-
-      if (buttonText) {
+      if (expanded === "false") {
+        accordion.setAttribute("data-expanded", "true");
+        accordion.classList.add("expanded");
+        accordion.scrollIntoView({
+          behavior: "smooth",
+        });
+        summary.classList.add("expanded");
         buttonText.textContent = "Close";
-      }
-
-      if (buttonSvg) {
-        buttonSvg.style.transform = "rotate(-45deg)";
-      }
-
-      if (details) {
-        details.style.display = "block";
+        button.classList.add("expanded");
+        detailsContainer.classList.add("expanded");
+        details.classList.add("expanded");
+      } else {
+        accordion.setAttribute("data-expanded", "false");
+        accordion.classList.remove("expanded");
+        summary.classList.remove("expanded");
+        buttonText.textContent = "Open";
+        button.classList.remove("expanded");
+        detailsContainer.classList.remove("expanded");
+        details.classList.remove("expanded");
       }
     });
   });
@@ -61,32 +96,40 @@ import x from "../assets/x.svg";
 
 <style lang="scss">
   @use "../styles/tokens/_tokens.scss" as t;
-  $transition: 0.3s all ease-out;
+  $transition: all 300ms linear;
+  $transform-origin: 50% 50% 0;
 
   .accordion {
     max-width: 62.5rem;
     width: 100%;
     box-shadow: rgb(0, 0, 0) 0rem 0rem 0rem 0rem;
-    background-color: t.$clr-accordion;
     border-radius: 0.5rem;
-    cursor: pointer;
-    transform-origin: 50% 50% 0rem;
+    background-color: t.$clr-accordion;
+    transform-origin: $transform-origin;
     transition: $transition;
   }
 
   .accordion.expanded,
   .accordion:hover {
     width: 102%;
-    // margin-left: -1%;
     box-shadow: rgba(0, 0, 0, 0.25) 0rem 1.25rem 0.625rem -0.9375rem;
-    border: 0.0625rem solid lightgrey;
     background-color: white;
   }
 
-  .accordion .summary {
+  .accordion.expanded {
+    max-width: 100%;
+  }
+
+  .summary {
     display: flex;
     padding: t.$pd-accordion;
     transition: $transition;
+    transform-origin: $transform-origin;
+    cursor: pointer;
+  }
+
+  .summary.expanded {
+    border-bottom: 0.0625rem solid lightgrey;
   }
 
   .accordion .summary .heading-area,
@@ -121,23 +164,50 @@ import x from "../assets/x.svg";
     margin-right: 0.75rem;
   }
 
-  .accordion .summary .toggle-accordion {
+  .accordion .summary .button-toggle {
     background-color: transparent;
     border: transparent;
     width: 2rem;
     height: 2rem;
-    transition: 0.3s ease-in all;
+    transition: $transition;
     transform: rotate(45deg);
+
+    &.expanded {
+      transform: rotate(-45deg);
+    }
+  }
+
+  .details-container {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 500ms;
+    overflow: hidden;
+
+    &.expanded {
+      grid-template-rows: 1fr;
+    }
   }
 
   .details {
-    display: none;
-    padding: t.$pd-accordion;
+    overflow: hidden;
+    transition: $transition;
+    opacity: 0;
+    transform: scale(1, 0);
+    transform-origin: top;
+
+    .inner {
+      padding: t.$pd-accordion;
+    }
+
+    &.expanded {
+      opacity: 1;
+      transform: scale(1, 1);
+    }
 
     header {
       font-size: clamp(1rem, 0.875rem + 0.78125vw, 1.25rem);
       line-height: clamp(1.875rem, 1.375rem + 0.78125vw, 2rem);
-      letter-spacing: -0.2px;
+      letter-spacing: -0.0125rem;
     }
   }
 
@@ -148,8 +218,8 @@ import x from "../assets/x.svg";
     flex-wrap: wrap;
     margin: 2rem 0;
     padding: t.$pd-accordion;
+    border-radius: 0.25rem;
     background-color: t.$clr-details-banner;
-    border-radius: 4px;
 
     .terms {
       font-weight: 700;
@@ -164,8 +234,18 @@ import x from "../assets/x.svg";
       margin-right: 1.5rem;
       font-size: 0.875rem;
       line-height: 1.25rem;
-      letter-spacing: 1px;
+      letter-spacing: 0.0625rem;
       text-transform: uppercase;
     }
+
+    button {
+      display: none;
+    }
+  }
+
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
   }
 </style>
