@@ -65,7 +65,7 @@ import Footer from "../layouts/Footer.astro";
     }
 
     .text {
-      padding: 1rem 0 1rem 5rem;
+      padding: 1rem 0 1rem clamp(1rem, 5vw, 5rem);
       z-index: 2;
       color: rgb(246, 246, 249);
       max-width: 50%;
@@ -101,6 +101,7 @@ import Footer from "../layouts/Footer.astro";
       img {
         height: 100%;
         object-fit: cover;
+        object-position: 65% 0;
       }
     }
   }
