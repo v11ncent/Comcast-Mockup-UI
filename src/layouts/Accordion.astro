@@ -38,6 +38,10 @@ import UpsellBanner from "../components/UpsellBanner.astro";
     const summary = accordion.querySelector(".summary") as HTMLElement;
 
     summary.addEventListener("click", (event) => {
+      if (accordion.classList.contains("hover")) {
+        accordion.classList.remove("hover");
+      }
+
       const button = accordion.querySelector(".accordion-icon") as HTMLElement;
       const buttonText = accordion.querySelector(
         ".button-area .text"
