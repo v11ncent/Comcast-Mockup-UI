@@ -1,8 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import MaxWidthContainer from "../components/MaxWidthContainer.astro";
-import heroImage from "../assets/3for1_Hero_fullimage_Desktop.avif";
 import checkmark from "../assets/checkmark.svg";
+import supersonicImage from "../assets/Xfi-purple-gateway.0f30d3c9.png";
 ---
 
 <Layout
@@ -54,26 +54,113 @@ import checkmark from "../assets/checkmark.svg";
         </p>
       </div>
     </MaxWidthContainer>
-    <div class="image-container">
-      <img
-        src={heroImage}
-        alt="Image of a phone, modem, and TV that has the different streaming services Comcast owns."
-      />
-    </div>
+    <div class="image-container"></div>
+  </section>
+  <section id="supersonic-wifi">
+    <MaxWidthContainer>
+      <div class="image-container show-animation show-animation-left">
+        <div class="decoration parallax">
+          <p>Parallax</p>
+        </div>
+        <img
+          src={supersonicImage}
+          alt="Image of wifi router with beams coming out of it."
+        />
+      </div>
+      <div class="text-container show-animation show-animation-right">
+        <header>
+          <p class="overline">Supersonic WiFi</p>
+          <h2>The next generation of WiFi technology is here</h2>
+        </header>
+        <p class="description">
+          3x the bandwidth to power hundreds of devices all at once, with the
+          most advanced WiFi technology with WiFi 6e.
+        </p>
+        <a href="/" class="primary-cta">Explore supersonic WiFi</a>
+      </div>
+    </MaxWidthContainer>
   </section>
 </Layout>
 
+<script>
+  /* Slide in */
+  const targets = document.querySelectorAll(
+    ".show-animation-left, .show-animation-right"
+  );
+
+  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+    entries.map((entry) => {
+      if (!entry.isIntersecting) return;
+
+      entry.target.classList.add("visible");
+    });
+  };
+
+  const observer = new IntersectionObserver(handleIntersection, {
+    threshold: 1,
+  });
+
+  targets.forEach((target) => {
+    observer.observe(target);
+  });
+
+  /* Parallax */
+  document.addEventListener("scroll", function () {
+    const parallax = document.querySelector(".parallax") as HTMLElement;
+    const scrolled = window.scrollY;
+
+    if (parallax) {
+      parallax.style.transform = `translateY(${scrolled * -0.1}px)`;
+    }
+  });
+</script>
+
 <style lang="scss">
   @use "../styles/tokens/_tokens.scss" as t;
+  $bp-buttons: 40rem;
+
+  .show-animation {
+    opacity: 0;
+    transition: all 500ms linear;
+  }
+
+  .show-animation-left {
+    transform: translateX(-30%);
+  }
+
+  .show-animation-right {
+    transform: translateX(30%);
+  }
+
+  .show-animation.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  :global(.max-width) {
+    max-width: 93.75rem;
+  }
 
   #navbar {
     color: white;
-    min-height: 3rem;
+    min-height: 5rem;
   }
+
+  /* Hero section */
 
   section#hero {
     display: grid;
     color: white;
+    background-color: t.$clr-hero-background;
+
+    @media (min-width: 43.75rem) {
+      min-height: 80vh;
+    }
+
+    ::selection {
+      background-color: white;
+      color: blue;
+    }
   }
 
   section#hero :global(.max-width),
@@ -84,19 +171,30 @@ import checkmark from "../assets/checkmark.svg";
 
   section#hero :global(.max-width) {
     z-index: 2;
+    margin: auto;
+    width: min(85rem, 100%);
+    position: relative;
+
+    @media (min-width: 62.5rem) {
+      right: min(2rem, 2vw);
+    }
   }
 
   .text-container {
-    padding: 4rem;
-    max-width: 37.5rem;
+    padding: 2rem;
+    max-width: 35.9375rem;
+
+    @media (min-width: $bp-buttons) {
+      padding: 4rem;
+    }
   }
 
-  .overline {
+  section#hero .overline {
     margin-bottom: 1rem;
     font-weight: 700;
     letter-spacing: -0.0125rem;
     line-height: 1;
-    font-size: clamp(1.25rem, 1.07rem + 0.89vw, 1.35rem);
+    font-size: clamp(1.25rem, 1.07rem + 0.89vw, 1.4rem);
   }
 
   h1 {
@@ -109,11 +207,15 @@ import checkmark from "../assets/checkmark.svg";
   li {
     display: flex;
     padding: 1rem 0;
-    border-bottom: 1px solid rgba(246, 246, 249, 0.15);
+    border-bottom: 0.0625rem solid rgba(246, 246, 249, 0.15);
+
+    p {
+      line-height: 1.5;
+    }
   }
 
   .checkmark {
-    margin-top: 1px;
+    margin-top: 0.0625rem;
     margin-right: 0.5rem;
   }
 
@@ -125,18 +227,127 @@ import checkmark from "../assets/checkmark.svg";
     font-size: 0.75rem;
   }
 
-  .image-container {
-    @media (min-width: 62.5rem) {
-      height: 60vh;
-    }
+  .primary-cta,
+  .secondary-cta {
+    display: block;
+    text-decoration: none;
+    font-weight: 700;
 
-    img {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
+    @media (min-width: $bp-buttons) {
+      display: inline-block;
+    }
+  }
+
+  section#hero .primary-cta {
+    $space: 1.5rem;
+
+    margin-bottom: $space;
+
+    @media (min-width: $bp-buttons) {
+      margin-right: $space;
+      text-align: left;
     }
   }
 
   .primary-cta {
+    padding: 1.25rem 2rem;
+    border-color: t.$clr-primary-cta-border;
+    color: t.$clr-primary-cta-text;
+    background-color: rgb(246, 246, 249);
+    transition: all 300ms cubic-bezier(0.4, 0, 1, 1);
+    border-radius: 0.25rem;
+    text-align: center;
+    white-space: nowrap;
+
+    &:hover {
+      filter: brightness(150%);
+    }
+  }
+
+  .secondary-cta {
+    color: white;
+  }
+
+  section#hero .image-container {
+    @media (min-width: $bp-buttons) {
+      background: center / cover no-repeat
+        url("../assets/3for1_Hero_fullimage_Desktop.avif");
+    }
+  }
+
+  /* End Hero section */
+
+  /* Supersonic section */
+  $transition: all 300ms linear;
+
+  section#supersonic-wifi {
+    min-height: 200vh;
+  }
+
+  .slide-in {
+    transform: translateX(0);
+  }
+
+  section#supersonic-wifi :global(.max-width) {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 auto;
+    padding: 5rem 0;
+    text-align: center;
+  }
+
+  section#supersonic-wifi header {
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  section#supersonic-wifi .image-container {
+    position: relative;
+    padding: 1rem;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  section#supersonic-wifi .text-container {
+    max-width: 37.5rem;
+    margin: auto;
+  }
+
+  section#supersonic-wifi .overline {
+    margin-bottom: 0.5rem;
+    font-size: clamp(1rem, 1.125vw, 1.125rem);
+  }
+
+  section#supersonic-wifi h2 {
+    font-size: clamp(1.75rem, calc(1.39286rem + 1.78571vw), 2rem);
+  }
+
+  section#supersonic-wifi .description {
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  section#supersonic-wifi .primary-cta {
+    color: white;
+    background-color: t.$clr-black;
+  }
+
+  .decoration {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 6rem;
+    width: 6rem;
+    background-color: white;
+    border: 2px dashed t.$clr-dark-purple;
+    border-radius: 100%;
+    bottom: 0;
+    left: 0;
   }
 </style>
