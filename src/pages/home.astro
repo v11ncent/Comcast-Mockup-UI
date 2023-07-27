@@ -97,7 +97,7 @@ import supersonicImage from "../assets/Xfi-purple-gateway.0f30d3c9.png";
   };
 
   const observer = new IntersectionObserver(handleIntersection, {
-    threshold: 1,
+    threshold: 0.5,
   });
 
   targets.forEach((target) => {
@@ -125,11 +125,11 @@ import supersonicImage from "../assets/Xfi-purple-gateway.0f30d3c9.png";
   }
 
   .show-animation-left {
-    transform: translateX(-30%);
+    transform: translateX(-10%);
   }
 
   .show-animation-right {
-    transform: translateX(30%);
+    transform: translateX(10%);
   }
 
   .show-animation.visible {
@@ -217,6 +217,7 @@ import supersonicImage from "../assets/Xfi-purple-gateway.0f30d3c9.png";
   .checkmark {
     margin-top: 0.0625rem;
     margin-right: 0.5rem;
+    display: none;
   }
 
   .links {
@@ -279,9 +280,11 @@ import supersonicImage from "../assets/Xfi-purple-gateway.0f30d3c9.png";
 
   /* Supersonic section */
   $transition: all 300ms linear;
+  $bp-large: 50rem;
 
   section#supersonic-wifi {
-    min-height: 200vh;
+    min-height: 125vh;
+    overflow: hidden;
   }
 
   .slide-in {
@@ -289,12 +292,17 @@ import supersonicImage from "../assets/Xfi-purple-gateway.0f30d3c9.png";
   }
 
   section#supersonic-wifi :global(.max-width) {
-    display: grid;
+    display: flex;
+    flex-direction: column-reverse;
     gap: 1rem;
-    grid-template-columns: repeat(2, 1fr);
     margin: 0 auto;
     padding: 5rem 0;
     text-align: center;
+
+    @media (min-width: $bp-large) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   section#supersonic-wifi header {
@@ -344,8 +352,8 @@ import supersonicImage from "../assets/Xfi-purple-gateway.0f30d3c9.png";
     justify-content: center;
     height: 6rem;
     width: 6rem;
-    background-color: white;
-    border: 2px dashed t.$clr-dark-purple;
+    color: white;
+    background-color: t.$clr-dark-purple;
     border-radius: 100%;
     bottom: 0;
     left: 0;
