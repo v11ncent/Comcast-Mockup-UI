@@ -55,14 +55,17 @@ import UpsellBanner from "../components/UpsellBanner.astro";
       if (expanded === "false") {
         accordion.setAttribute("data-expanded", "true");
         accordion.classList.add("expanded");
-        accordion.scrollIntoView({
-          behavior: "smooth",
-        });
+        console.log(accordion);
+
         summary.classList.add("expanded");
         buttonText.textContent = "Close";
         button.classList.add("expanded");
         detailsContainer.classList.add("expanded");
         details.classList.add("expanded");
+
+        accordion.scrollIntoView({
+          behavior: "smooth",
+        });
       } else {
         accordion.setAttribute("data-expanded", "false");
         accordion.classList.remove("expanded");
@@ -165,7 +168,7 @@ import UpsellBanner from "../components/UpsellBanner.astro";
     transform: rotate(45deg);
 
     &.expanded {
-      transform: rotate(-45deg);
+      transform: rotate(0deg);
     }
   }
 
